@@ -1,0 +1,104 @@
+import { useEffect, useRef } from 'react';
+
+import { device } from '@/libs/device';
+import { Modifiers } from '@/libs/device/keyboard.ts';
+import { KeyboardCodes } from '@/libs/keyboard';
+
+const MAX_SIMULTANEOUS_KEYS = 6;
+const ModifierKeys = new Set(['Control', 'Shift', 'Alt', 'Meta']);
+
+export const Keyboard = () => {
+  const pressedKeysRef = useRef<Set<number>>(new Set());
+  const pressedModifiersRef = useRef<Set<string>>(new Set());
+
+  // listen keyboard events
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', releaseAllKeys);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', releaseAllKeys);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  // press button
+  async function handleKeyDown(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (ModifierKeys.has(event.key)) {
+      pressedModifiersRef.current.add(event.code);
+    } else {
+      const keyCode = KeyboardCodes.get(event.code);
+      if (
+        keyCode !== undefined &&
+        !pressedKeysRef.current.has(keyCode) &&
+        pressedKeysRef.current.size < MAX_SIMULTANEOUS_KEYS
+      ) {
+        pressedKeysRef.current.add(keyCode);
+      }
+    }
+
+    await sendKeyData();
+  }
+
+  // release button
+  async function handleKeyUp(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (ModifierKeys.has(event.key)) {
+      pressedModifiersRef.current.delete(event.code);
+    } else {
+      const commonKeyCode = KeyboardCodes.get(event.code);
+      if (commonKeyCode !== undefined && pressedKeysRef.current.has(commonKeyCode)) {
+        pressedKeysRef.current.delete(commonKeyCode);
+      }
+    }
+
+    await sendKeyData();
+  }
+
+  // release all keys when page loses focus
+  async function releaseAllKeys() {
+    if (pressedKeysRef.current.size === 0 && pressedModifiersRef.current.size === 0) {
+      return;
+    }
+
+    const modifiers = new Modifiers();
+    const keys = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
+    await device.sendKeyboardData(modifiers, keys);
+
+    pressedKeysRef.current.clear();
+    pressedModifiersRef.current.clear();
+  }
+
+  // release all keys when page is hidden
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      releaseAllKeys();
+    }
+  }
+
+  // send keyboard data
+  async function sendKeyData() {
+    const modifiers = new Modifiers();
+    pressedModifiersRef.current.forEach((code) => {
+      modifiers.setModifier(code);
+    });
+
+    const keys = [
+      ...Array.from(pressedKeysRef.current),
+      ...new Array(MAX_SIMULTANEOUS_KEYS - pressedKeysRef.current.size).fill(0x00)
+    ];
+
+    await device.sendKeyboardData(modifiers, keys);
+  }
+
+  return <></>;
+};

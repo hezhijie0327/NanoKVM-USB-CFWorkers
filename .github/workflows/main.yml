@@ -19,4 +19,4 @@ jobs:
       - name: Step 3 - Release NanoKVM-USB-CFWorkers
         run: |
           curl -s "https://raw.githubusercontent.com/hezhijie0327/Toolkit/main/Git.sh" > "/tmp/Git.sh"
-          sudo bash "/tmp/Git.sh" -u "hezhijie0327" -e "hezhijie0327@hotmail.com" -f "." -r "CNIPDb" -i "Synced by GitHub Actions" -m "push"
+          sudo bash "/tmp/Git.sh" -u "hezhijie0327" -e "hezhijie0327@hotmail.com" -f "." -r "NanoKVM-USB-CFWorkers" -i "Synced by GitHub Actions" -m "push"

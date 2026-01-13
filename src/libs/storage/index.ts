@@ -1,11 +1,11 @@
-import type { Resolution } from '@/types';
+import type { Resolution, Rotation } from '@/types';
 
 const LANGUAGE_KEY = 'nanokvm-usb-language';
 const VIDEO_DEVICE_ID_KEY = 'nanokvm-usb-video-device-id';
 const VIDEO_RESOLUTION_KEY = 'nanokvm-usb-video-resolution';
 const CUSTOM_RESOLUTION_KEY = 'nanokvm-usb-custom-resolution';
 const VIDEO_SCALE_KEY = 'nanokvm-usb-video-scale';
-const VIDEO_ROTATE_KEY = 'nanokvm-usb-video-rotate';
+const VIDEO_ROTATION_KEY = 'nanokvm-usb-video-rotation';
 const IS_MENU_OPEN_KEY = 'nanokvm-is-menu-open';
 const MOUSE_STYLE_KEY = 'nanokvm-usb-mouse-style';
 const MOUSE_MODE_KEY = 'nanokvm-usb-mouse-mode';
@@ -72,16 +72,19 @@ export function setVideoScale(scale: number): void {
   localStorage.setItem(VIDEO_SCALE_KEY, String(scale));
 }
 
-export function getVideoRotate(): number | null {
-  const scale = localStorage.getItem(VIDEO_ROTATE_KEY)
-  if (scale && Number(scale)) {
-    return Number(scale)
+export function getVideoRotation(): Rotation | null {
+  const rotation = localStorage.getItem(VIDEO_ROTATION_KEY);
+  if (rotation) {
+    const value = Number(rotation);
+    if (value === 0 || value === 90 || value === 180 || value === 270) {
+      return value as Rotation;
+    }
   }
-  return null
+  return null;
 }
 
-export function setVideoRotate(scale: number): void {
-  localStorage.setItem(VIDEO_ROTATE_KEY, String(scale))
+export function setVideoRotation(rotation: Rotation): void {
+  localStorage.setItem(VIDEO_ROTATION_KEY, String(rotation));
 }
 
 export function getIsMenuOpen(): boolean {

@@ -16,16 +16,16 @@ export const Video = ({ setErrMsg }: VideoProps) => {
   const { t } = useTranslation();
 
   const resolution = useAtomValue(resolutionAtom);
-  const [videoState, setVideoState] = useAtom(videoStateAtom);
   const [videoDeviceId, setVideoDeviceId] = useAtom(videoDeviceIdAtom);
+  const [videoState, setVideoState] = useAtom(videoStateAtom);
 
   const [devices, setDevices] = useState<MediaDevice[]>([]);
 
   useEffect(() => {
-    getDevices(true);
+    getDevices();
   }, []);
 
-  async function getDevices(autoOpen: boolean): Promise<void> {
+  async function getDevices() {
     try {
       const allDevices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = allDevices.filter((device) => device.kind === 'videoinput');
@@ -51,60 +51,49 @@ export const Video = ({ setErrMsg }: VideoProps) => {
       });
 
       setDevices(mediaDevices);
-
-      if (autoOpen) {
-        const videoId = storage.getVideoDevice();
-        if (!videoId) return;
-        const device = mediaDevices.find((d) => d.videoId === videoId);
-        if (!device) return;
-        await openCamera(device.videoId, device.audioId);
-      }
     } catch (err) {
       console.log(err);
       setErrMsg(t('camera.failed'));
     }
   }
 
-  async function selectDevice(videoId: string): Promise<void> {
+  async function selectVideo(videoId: string) {
+    if (videoState === 'connecting') return;
+
     if (!videoId) {
       setVideoDeviceId('');
       return;
     }
-
-    if (videoState === 'connecting') return;
-    setVideoState('connecting');
-    setErrMsg('');
 
     const device = devices.find((d) => d.videoId === videoId);
     if (!device) {
       return;
     }
 
-    await openCamera(device.videoId, device.audioId);
-  }
+    setVideoState('connecting');
+    setErrMsg('');
 
-  async function openCamera(videoId: string, audioId?: string): Promise<void> {
     try {
-      await camera.open(videoId, resolution.width, resolution.height, audioId);
-
-      const video = document.getElementById('video') as HTMLVideoElement;
-      if (!video) return;
-
-      video.srcObject = camera.getStream();
-
-      setVideoState('connected');
-      setVideoDeviceId(videoId);
-      storage.setVideoDevice(videoId);
+      await camera.open(videoId, resolution.width, resolution.height, device.audioId);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : t('camera.failed');
-      setErrMsg(msg);
+      console.log(err);
+      setErrMsg(t('camera.failed'));
     }
+
+    const video = document.getElementById('video') as HTMLVideoElement;
+    if (!video) return;
+
+    video.srcObject = camera.getStream();
+
+    setVideoState('connected');
+    setVideoDeviceId(videoId);
+    storage.setVideoDevice(videoId);
   }
 
   return (
     <Select
       value={videoDeviceId || undefined}
-      className="w-[250px]"
+      style={{ width: 250 }}
       options={devices}
       fieldNames={{
         value: 'videoId',
@@ -113,8 +102,8 @@ export const Video = ({ setErrMsg }: VideoProps) => {
       allowClear={true}
       loading={videoState === 'connecting'}
       placeholder={t('modal.selectVideo')}
-      onChange={selectDevice}
-      onClick={() => getDevices(false)}
+      onChange={selectVideo}
+      onClick={getDevices}
     />
   );
 };

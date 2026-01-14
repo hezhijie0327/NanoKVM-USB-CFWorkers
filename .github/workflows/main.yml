@@ -15,7 +15,7 @@ jobs:
         run: |
           git clone --depth 1 -b "main" "https://github.com/sipeed/NanoKVM-USB" "/tmp/NanoKVM-USB"
           rm -rf /tmp/NanoKVM-USB/browser/pnpm-*.yaml
-          rsync -av --delete --exclude='.github' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
+          rsync -av --delete --exclude='.github' --exclude='CLAUDE.md' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
       - name: Step 2.5 - Apply patches
         run: |
           if [ -d "patch" ] && [ -n "$(ls -A patch/*.patch 2>/dev/null)" ]; then

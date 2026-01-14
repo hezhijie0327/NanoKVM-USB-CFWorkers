@@ -7,7 +7,7 @@ import languages from '@/i18n/languages.ts';
 import { setLanguage } from '@/libs/storage';
 
 export const Language = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   function changeLanguage(lng: string) {
     if (i18n.language === lng) return;

@@ -34,10 +34,9 @@ export const Language = () => {
   );
 
   return (
-    <Popover content={content} placement="rightTop">
-      <div className="flex h-[32px] cursor-pointer items-center space-x-2 rounded px-3 text-neutral-300 hover:bg-neutral-700/50">
-        <LanguagesIcon size={16} />
-        <span>{t('settings.language')}</span>
+    <Popover content={content} placement="bottomLeft" trigger="click" arrow={false}>
+      <div className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-neutral-300 hover:bg-neutral-700/70 hover:text-white">
+        <LanguagesIcon size={18} />
       </div>
     </Popover>
   );

@@ -14,4 +14,4 @@ export const scrollDirectionAtom = atom(1);
 export const scrollIntervalAtom = atom(0);
 
 // mouse jiggler mode: enable or disable
-export const mouseJigglerModeAtom = atom<'enable' | 'disable'>('disable');
+export const mouseJigglerModeAtom = atom<'enable' | 'disable'>('enable');

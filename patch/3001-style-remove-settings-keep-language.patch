@@ -1,105 +1,20 @@
 diff --git a/src/components/menu/index.tsx b/src/components/menu/index.tsx
-index 47b08e9..bab6bd8 100644
+index 5f11fa8..bfc7a50 100644
 --- a/src/components/menu/index.tsx
 +++ b/src/components/menu/index.tsx
-@@ -9,11 +9,11 @@ import * as storage from '@/libs/storage';
-
- import { Fullscreen } from './fullscreen';
- import { Keyboard } from './keyboard';
-+import { Language } from './language';
+@@ -12,7 +12,6 @@ import { Keyboard } from './keyboard';
  import { Mouse } from './mouse';
  import { Recorder } from './recorder';
  import { SerialPort } from './serial-port';
- import { Screenshot } from './screenshot';
 -import { Settings } from './settings';
  import { Video } from './video';
-
+ 
  export const Menu = () => {
-@@ -62,7 +62,7 @@ export const Menu = () => {
-
+@@ -60,7 +59,6 @@ export const Menu = () => {
+ 
            <Divider type="vertical" />
-
+ 
 -          <Settings />
-+          <Language />
            <Fullscreen />
            <div
              className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-neutral-300 hover:bg-neutral-700/70 hover:text-white"
-diff --git a/src/components/menu/settings/language.tsx b/src/components/menu/language.tsx
-similarity index 74%
-rename from src/components/menu/settings/language.tsx
-rename to src/components/menu/language.tsx
-index 0689184..8772065 100644
---- a/src/components/menu/settings/language.tsx
-+++ b/src/components/menu/language.tsx
-@@ -7,7 +7,7 @@ import languages from '@/i18n/languages.ts';
- import { setLanguage } from '@/libs/storage';
-
- export const Language = () => {
--  const { t, i18n } = useTranslation();
-+  const { i18n } = useTranslation();
-
-   function changeLanguage(lng: string) {
-     if (i18n.language === lng) return;
-@@ -34,10 +34,9 @@ export const Language = () => {
-   );
-
-   return (
--    <Popover content={content} placement="rightTop">
--      <div className="flex h-[32px] cursor-pointer items-center space-x-2 rounded px-3 text-neutral-300 hover:bg-neutral-700/50">
--        <LanguagesIcon size={16} />
--        <span>{t('settings.language')}</span>
-+    <Popover content={content} placement="bottomLeft" trigger="click" arrow={false}>
-+      <div className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-neutral-300 hover:bg-neutral-700/70 hover:text-white">
-+        <LanguagesIcon size={18} />
-       </div>
-     </Popover>
-   );
-diff --git a/src/components/menu/settings/index.tsx b/src/components/menu/settings/index.tsx
-deleted file mode 100644
-index 4de22a2..0000000
---- a/src/components/menu/settings/index.tsx
-+++ /dev/null
-@@ -1,43 +0,0 @@
--import { Popover } from 'antd';
--import { BookIcon, DownloadIcon, SettingsIcon } from 'lucide-react';
--import { useTranslation } from 'react-i18next';
--
--import { Language } from './language.tsx';
--
--export const Settings = () => {
--  const { t } = useTranslation();
--
--  function openPage(url: string) {
--    window.open(url, '_blank');
--  }
--
--  const content = (
--    <div className="flex flex-col space-y-0.5">
--      <Language />
--
--      <div
--        className="flex h-[32px] cursor-pointer items-center space-x-2 rounded px-3 text-neutral-300 hover:bg-neutral-700/50"
--        onClick={() => openPage('https://wiki.sipeed.com/nanokvmusb')}
--      >
--        <BookIcon size={16} />
--        <span>{t('settings.document')}</span>
--      </div>
--
--      <div
--        className="flex h-[32px] cursor-pointer items-center space-x-2 rounded px-3 text-neutral-300 hover:bg-neutral-700/50"
--        onClick={() => openPage('https://github.com/sipeed/NanoKVM-USB/releases')}
--      >
--        <DownloadIcon size={16} />
--        <span>{t('settings.download')}</span>
--      </div>
--    </div>
--  );
--
--  return (
--    <Popover content={content} placement="bottomLeft" trigger="click" arrow={false}>
--      <div className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-neutral-300 hover:bg-neutral-700/50 hover:text-white">
--        <SettingsIcon size={18} />
--      </div>
--    </Popover>
--  );
--};

@@ -1,16 +1,16 @@
 diff --git a/src/components/menu/index.tsx b/src/components/menu/index.tsx
-index 5f11fa8..bfc7a50 100644
+index 47b08e9..d3f78e8 100644
 --- a/src/components/menu/index.tsx
 +++ b/src/components/menu/index.tsx
-@@ -12,7 +12,6 @@ import { Keyboard } from './keyboard';
- import { Mouse } from './mouse';
+@@ -13,7 +13,6 @@ import { Mouse } from './mouse';
  import { Recorder } from './recorder';
  import { SerialPort } from './serial-port';
+ import { Screenshot } from './screenshot';
 -import { Settings } from './settings';
  import { Video } from './video';
  
  export const Menu = () => {
-@@ -60,7 +59,6 @@ export const Menu = () => {
+@@ -62,7 +61,6 @@ export const Menu = () => {
  
            <Divider type="vertical" />
  

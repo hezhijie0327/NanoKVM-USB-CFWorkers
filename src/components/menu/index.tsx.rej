@@ -1,9 +1,0 @@
-diff a/src/components/menu/index.tsx b/src/components/menu/index.tsx	(rejected hunks)
-@@ -12,7 +12,6 @@ import { Keyboard } from './keyboard';
- import { Mouse } from './mouse';
- import { Recorder } from './recorder';
- import { SerialPort } from './serial-port';
--import { Settings } from './settings';
- import { Video } from './video';
- 
- export const Menu = () => {

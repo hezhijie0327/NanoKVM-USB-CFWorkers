@@ -62,6 +62,7 @@ export const Menu = () => {
 
           <Divider type="vertical" />
 
+          <Settings />
           <Fullscreen />
           <div
             className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-neutral-300 hover:bg-neutral-700/70 hover:text-white"

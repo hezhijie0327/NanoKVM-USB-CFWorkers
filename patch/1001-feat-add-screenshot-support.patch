@@ -10,14 +10,16 @@ index 5f11fa8..47b08e9 100644
  import { Settings } from './settings';
  import { Video } from './video';
  
-@@ -57,6 +58,7 @@ export const Menu = () => {
-           <Divider type="vertical" />
+@@ -126,7 +127,10 @@ export const Menu = {
+             )}
  
-           <Recorder />
-+          <Screenshot />
+             <Recorder />
++
++            <Screenshot />
  
-           <Divider type="vertical" />
+             <Divider type="vertical" className="px-0.5" />
  
+             <Settings />
 diff --git a/src/components/menu/screenshot/index.tsx b/src/components/menu/screenshot/index.tsx
 new file mode 100644
 index 0000000..06aa31b

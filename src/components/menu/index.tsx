@@ -13,7 +13,7 @@ import { Keyboard } from './keyboard';
 import { Mouse } from './mouse';
 import { Recorder } from './recorder';
 import { SerialPort } from './serial-port';
-import { Screenshot } from './screenshot';
+import { Settings } from './settings';
 import { Video } from './video';
 
 export const Menu = () => {

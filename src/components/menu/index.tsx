@@ -14,6 +14,7 @@ import { Mouse } from './mouse';
 import { Recorder } from './recorder';
 import { SerialPort } from './serial-port';
 import { Settings } from './settings';
+import { Screenshot } from './screenshot';
 import { Video } from './video';
 
 export const Menu = () => {
@@ -126,6 +127,8 @@ export const Menu = () => {
             )}
 
             <Recorder />
+
+            <Screenshot />
 
             <Divider type="vertical" className="px-0.5" />
 

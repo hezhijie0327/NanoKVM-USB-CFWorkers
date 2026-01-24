@@ -1,25 +1,25 @@
 diff --git a/src/components/menu/index.tsx b/src/components/menu/index.tsx
-index 5f11fa8..47b08e9 100644
+index cd170b7..d254900 100644
 --- a/src/components/menu/index.tsx
 +++ b/src/components/menu/index.tsx
-@@ -12,6 +12,7 @@ import { Keyboard } from './keyboard';
- import { Mouse } from './mouse';
+@@ -14,6 +14,7 @@ import { Mouse } from './mouse';
  import { Recorder } from './recorder';
  import { SerialPort } from './serial-port';
-+import { Screenshot } from './screenshot';
  import { Settings } from './settings';
++import { Screenshot } from './screenshot';
  import { Video } from './video';
  
-@@ -126,7 +127,10 @@ export const Menu = {
-             )}
+ export const Menu = () => {
+@@ -127,6 +128,8 @@ export const Menu = () => {
  
              <Recorder />
-+
-+            <Screenshot />
  
++            <Screenshot />
++
              <Divider type="vertical" className="px-0.5" />
  
              <Settings />
+
 diff --git a/src/components/menu/screenshot/index.tsx b/src/components/menu/screenshot/index.tsx
 new file mode 100644
 index 0000000..06aa31b

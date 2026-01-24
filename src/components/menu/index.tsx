@@ -14,7 +14,6 @@ import { Mouse } from './mouse';
 import { Recorder } from './recorder';
 import { SerialPort } from './serial-port';
 import { Settings } from './settings';
-import { Screenshot } from './screenshot';
 import { Video } from './video';
 
 export const Menu = () => {
@@ -128,9 +127,9 @@ export const Menu = () => {
 
             <Recorder />
 
-            <Screenshot />
-
             <Divider type="vertical" className="px-0.5" />
+
+            <Settings />
             <Fullscreen />
             <div
               className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-white hover:bg-neutral-700/70"

@@ -5,7 +5,7 @@ index cd170b7..977d143 100644
 @@ -14,6 +14,7 @@ import { Mouse } from './mouse';
  import { Recorder } from './recorder';
  import { SerialPort } from './serial-port';
- import { Settings } from './settings';
+-import { Settings } from './settings';
 +import { Screenshot } from './screenshot';
  import { Video } from './video';
  

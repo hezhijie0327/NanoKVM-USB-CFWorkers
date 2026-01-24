@@ -22,11 +22,11 @@ index cd170b7..977d143 100644
              <Fullscreen />
              <div
                className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-white hover:bg-neutral-700/70"
-diff --git a/src/components/menu/screenshot/index.tsx b/browser/src/components/menu/screenshot/index.tsx
+diff --git a/src/components/menu/screenshot/index.tsx b/src/components/menu/screenshot/index.tsx
 new file mode 100644
-index 0000000..a71d1d6
+index 0000000..06aa31b
 --- /dev/null
---- a/src/components/menu/screenshot/index.tsx
++++ b/src/components/menu/screenshot/index.tsx
 @@ -0,0 +1,52 @@
 +import { Camera } from 'lucide-react';
 +

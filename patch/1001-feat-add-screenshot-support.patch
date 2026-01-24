@@ -1,7 +1,7 @@
-diff --git a/src/components/menu/index.tsx b/src/components/menu/index.tsx
-index cd170b7..d254900 100644
+diff --git a/src/components/menu/index.tsx b/browser/src/components/menu/index.tsx
+index cd170b7..977d143 100644
++++ a/src/components/menu/index.tsx
 --- a/src/components/menu/index.tsx
-+++ b/src/components/menu/index.tsx
 @@ -14,6 +14,7 @@ import { Mouse } from './mouse';
  import { Recorder } from './recorder';
  import { SerialPort } from './serial-port';
@@ -10,21 +10,23 @@ index cd170b7..d254900 100644
  import { Video } from './video';
  
  export const Menu = () => {
-@@ -127,6 +128,8 @@ export const Menu = () => {
+@@ -127,9 +128,9 @@ export const Menu = () => {
  
              <Recorder />
  
+-            <Divider type="vertical" className="px-0.5" />
 +            <Screenshot />
-+
-             <Divider type="vertical" className="px-0.5" />
  
-             <Settings />
-
-diff --git a/src/components/menu/screenshot/index.tsx b/src/components/menu/screenshot/index.tsx
+-            <Settings />
++            <Divider type="vertical" className="px-0.5" />
+             <Fullscreen />
+             <div
+               className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded text-white hover:bg-neutral-700/70"
+diff --git a/src/components/menu/screenshot/index.tsx b/browser/src/components/menu/screenshot/index.tsx
 new file mode 100644
-index 0000000..06aa31b
+index 0000000..a71d1d6
 --- /dev/null
-+++ b/src/components/menu/screenshot/index.tsx
+--- a/src/components/menu/screenshot/index.tsx
 @@ -0,0 +1,52 @@
 +import { Camera } from 'lucide-react';
 +

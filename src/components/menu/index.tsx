@@ -12,6 +12,7 @@ import { Fullscreen } from './fullscreen';
 import { Keyboard } from './keyboard';
 import { Mouse } from './mouse';
 import { Recorder } from './recorder';
+import { Screenshot } from './screenshot';
 import { SerialPort } from './serial-port';
 import { Settings } from './settings';
 import { Video } from './video';
@@ -125,6 +126,7 @@ export const Menu = () => {
               </>
             )}
 
+            <Screenshot />
             <Recorder />
 
             <Divider type="vertical" className="px-0.5" />

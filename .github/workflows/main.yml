@@ -2,7 +2,7 @@ name: Build & Release hezhijie0327/NanoKVM-USB-CFWorkers
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
         run: |
           git clone --depth 1 -b "main" "https://github.com/sipeed/NanoKVM-USB" "/tmp/NanoKVM-USB"
           rm -rf /tmp/NanoKVM-USB/browser/pnpm-*.yaml
-          rsync -av --delete --exclude='.git' --exclude='.github' --exclude='CLAUDE.md' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
+          rsync -av --delete --exclude='.git' --exclude='.github' --exclude='AGENTS.md' --exclude='LICENSE' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
       - name: Step 2.5 - Apply patches
         run: |
           if [ -d "patch" ] && [ -n "$(ls -A patch/*.patch 2>/dev/null)" ]; then

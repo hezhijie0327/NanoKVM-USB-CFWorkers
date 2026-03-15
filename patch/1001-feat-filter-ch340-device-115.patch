@@ -1,0 +1,30 @@
+diff --git a/browser/src/components/device-modal/serial-port.tsx b/browser/src/components/device-modal/serial-port.tsx
+index b03247b..cf012ef 100644
+--- a/browser/src/components/device-modal/serial-port.tsx
++++ b/browser/src/components/device-modal/serial-port.tsx
+@@ -29,7 +29,9 @@ export const SerialPort = ({ setErrMsg, onDisconnect }: SerialPortProps) => {
+     setErrMsg('');
+
+     try {
+-      const port = await navigator.serial.requestPort();
++      const port = await navigator.serial.requestPort({
++        filters: [{ usbVendorId: 0x1a86, usbProductId: 0x7523 }] // CH340
++      });
+       await device.serialPort.init({ port, onDisconnect });
+
+       setSerialState('connected');
+diff --git a/browser/src/components/menu/serial-port/index.tsx b/browser/src/components/menu/serial-port/index.tsx
+index 425e688..2df7b0a 100644
+--- a/browser/src/components/menu/serial-port/index.tsx
++++ b/browser/src/components/menu/serial-port/index.tsx
+@@ -11,7 +11,9 @@ export const SerialPort = () => {
+     setIsLoading(true);
+
+     try {
+-      const port = await navigator.serial.requestPort();
++      const port = await navigator.serial.requestPort({
++        filters: [{ usbVendorId: 0x1a86, usbProductId: 0x7523 }] // CH340
++      });
+       await device.serialPort.init({ port });
+     } finally {
+       setIsLoading(false);

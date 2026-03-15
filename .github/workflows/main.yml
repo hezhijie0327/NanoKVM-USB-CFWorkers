@@ -14,15 +14,18 @@ jobs:
       - name: Step 2 - Build NanoKVM-USB-CFWorkers
         run: |
           git clone --depth 1 -b "main" "https://github.com/sipeed/NanoKVM-USB" "/tmp/NanoKVM-USB"
-          rm -rf /tmp/NanoKVM-USB/browser/pnpm-*.yaml
-          rsync -av --delete --exclude='.git' --exclude='.github' --exclude='AGENTS.md' --exclude='LICENSE' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
-      - name: Step 2.5 - Apply patches
-        run: |
+
           if [ -d "patch" ] && [ -n "$(ls -A patch/*.patch 2>/dev/null)" ]; then
-            for p in patch/*.patch; do
+            cd "/tmp/NanoKVM-USB"
+            for p in ${{ github.workspace }}/patch/*.patch; do
               git apply --reject "$p" || true
             done
+            cd ${{ github.workspace }}
           fi
+
+          rm -rf /tmp/NanoKVM-USB/browser/pnpm-*.yaml
+
+          rsync -av --delete --exclude='.git' --exclude='.github' --exclude='AGENTS.md' --exclude='LICENSE' --exclude='wrangler.jsonc' --exclude='patch' /tmp/NanoKVM-USB/browser/ ./
       - name: Step 3 - Release NanoKVM-USB-CFWorkers
         run: |
           curl -s "https://raw.githubusercontent.com/hezhijie0327/Toolkit/main/Git.sh" > "/tmp/Git.sh"

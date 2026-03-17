@@ -102,8 +102,8 @@ export const Menu = () => {
               </>
             )}
 
-            <Screenshot />
             <Recorder />
+            <Screenshot />
 
             <Divider type="vertical" className="px-0.5" />
 

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Step 2 - Build NanoKVM-USB-CFWorkers
         run: |
           git clone --depth 1 -b "main" "https://github.com/sipeed/NanoKVM-USB" "/tmp/NanoKVM-USB"

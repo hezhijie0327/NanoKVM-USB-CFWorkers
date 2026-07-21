@@ -2,7 +2,7 @@ name: Build & Release hezhijie0327/NanoKVM-USB-CFWorkers
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 jobs:
